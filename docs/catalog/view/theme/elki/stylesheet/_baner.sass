@@ -1,0 +1,103 @@
+.banner
+  position: relative
+  left: calc(-1 * (100vw - 100%) / 2)
+  width: 100vw
+  background-color: $lighter-blue
+  overflow: hidden
+
+  &__container
+    position: relative
+    z-index: 1
+    padding-top: rem(16)
+    padding-bottom: rem(24)
+  &__bg
+    position: absolute
+    z-index: -1
+    top: 0
+
+    right: 0
+    @media (min-width: $sm)
+      right: -75px
+    @media (min-width: $md)
+      right: -90px
+    @media (min-width: $lg)
+      right: 0
+    height: 100%
+    img
+      width: auto
+      height: auto
+      min-height: 100%
+
+      opacity: .75
+      @media (min-width: $sm)
+        opacity: 1
+  &__row
+    text-align: center
+    @media (min-width: $md)
+      text-align: left
+
+  //left col
+  &__left-col
+    @media (min-width: $xl)
+      padding-left: 48px
+      padding-right: 0px
+  &__img
+    img
+      width: auto
+      height: auto
+
+      max-width: 120px
+      @media (min-width: $sm)
+        max-width: 140px
+      @media (min-width: $md)
+        max-width: 100%
+
+  //right-col
+  &__right-col
+    padding-top: rem(30)
+    @media (min-width: $md)
+      padding-top: rem(61)
+
+    @media (min-width: $xl)
+      padding-left: 0
+  &__title
+    display: inline-block
+    vertical-align: top
+
+    border-top: 3px solid $white
+    border-bottom: 3px solid $white
+
+    font-size: 38px
+    @media (min-width: $sm)
+      font-size: rem(51px)
+
+    line-height: 1
+    font-weight: 700
+    text-transform: uppercase
+    padding: rem(14px) 0 rem(2px) 0
+    margin-bottom: rem(21)
+  &__small
+    font-size: rem(30px)
+    @media (min-width: $sm)
+      font-size: rem(35px)
+    @media (min-width: $lg)
+      font-size: rem(38px)
+    line-height: 1
+    font-weight: 400
+
+  &__big
+    color: $dark
+
+    font-size: rem(35)
+    @media (min-width: $sm)
+      font-size: 38px
+    @media (min-width: $lg)
+      font-size: rem(52px)
+
+    line-height: 1
+    font-weight: 700
+    margin-bottom: 22px
+    .red
+      color: $cherry-red
+  &__btn
+    @extend .btn-red-frame

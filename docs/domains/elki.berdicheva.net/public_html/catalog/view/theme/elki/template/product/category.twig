@@ -1,0 +1,128 @@
+{{ header }}
+<div class="breadscrums">
+  <div class="container">
+    <div class="row">
+      <ul>
+       {% for breadcrumb in breadcrumbs %}
+       {% if  loop.index < loop.length %}
+      <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li> {% else %}<li style="text-decoration: unset"><span>{{ breadcrumb.text }}</span>{% endif %}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="product-category" class="container my-3 my-md-5">
+  <div class="row">
+    {% if column_left %}
+    <div class="col-sm-3">{{ column_left }}</div>
+    {% endif %}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h1>{{ heading_title }}</h1>
+
+      {% if categories %}
+      <div class="category">
+        <div class="categ_title">{{ text_refine }}</div>
+
+        <div class="row mb-3">
+          {% for category in categories %}
+          <div class="col-sm-3 text-center">
+            <div class="product-thumb transition">
+              <div class="image"><a href="{{ category.href }}"><img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-fluid" /></a></div>
+              <div class="caption product_opis">
+                <div class="mh">
+                  <h4 class="product_title"><a href="{{ category.href }}">{{ category.name }}</a></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <hr>
+      {% endif %}
+
+      {% if products %}
+      <div class="row "> {% for product in products %}
+  <div class="product-layout col-lg-4 col-md-4 col-sm-6">
+    <div class="wrap_product my-3">
+      <div class="product-thumb transition tovar">
+        <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-fluid" /></a></div>
+        <div class="caption product_opis">
+          
+          <div class="mh">
+            <h4 class="product_title px-1"><a href="{{ product.href }}">{{ product.name }}</a></h4>
+            {% if product.tag %}
+              <p class="pheight text-center">{{ product.tag }}</p>
+            {% endif %}
+            <!-- <p>{{ product.description }}</p> -->
+            {% if product.rating %}
+            <div class="rating">
+              {% for i in 5 %}
+              {% if product.rating < i %}
+              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+              {% else %}
+              <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% if product.price %}
+            <p class="price product_price">
+              {% if not product.special %}
+              {{ product.price }}
+              {% else %}
+              <span class="price-new product_price">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+              {% endif %}
+              {% if product.tax %}
+              <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+              {% endif %}
+            </p>
+            {% endif %}</div>
+      
+        <div class="hover">
+          <div class="button-group">
+            <a type="button" href="{{ product.href }}" class="btn byu"><span>{{ button_cart }}</span></a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        {% endfor %} </div>
+      <div class="row">
+        <div class="col-sm-6 text-left">{{ pagination }}</div>
+        <!-- <div class="col-sm-6 text-right">{{ results }}</div> -->
+      </div>
+      {% endif %}
+      {% if not categories and not products %}
+      <p>{{ text_empty }}</p>
+      <div class="buttons">
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      </div>
+      {% endif %}
+
+
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+      {% if thumb or description %}
+      <div class="row mt-3 mt-md-5">
+       {% if thumb %}
+        <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail" /></div>
+        {% endif %}
+        {% if description %}
+        <div class="col-sm-10 description">{{ description }}</div>
+        {% endif %}
+      </div>
+
+      {% endif %}
+</div>
+
+{{ footer }} 

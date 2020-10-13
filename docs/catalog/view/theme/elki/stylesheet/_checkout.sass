@@ -1,0 +1,293 @@
+.container
+  #quickcheckoutconfirm
+    padding-bottom: rem(50)
+  .quickcheckout-content
+    margin: 0 -15px
+    @media (min-width: $sm)
+      margin: 0
+  #cart1
+    padding-top: rem(51px)
+  //head
+  table.quickcheckout-cart
+    //border-spacing: 0 15px
+    //border-collapse: separate
+    border: none
+    thead
+      background-color: $lighter-blue
+      //background-color: red
+    &  *
+      border: none
+  //head item
+  .quickcheckout-cart thead td
+    background-color: transparent
+    padding: 10px
+  //head childs
+  .quickcheckout-cart thead td.name
+    @media (min-width: $xl)
+      padding-left: 50px
+  //cols
+  .quickcheckout-cart td.image
+    width: 11%
+  //
+  .quickcheckout-cart td.name
+    text-align: center
+  .quickcheckout-cart tbody td.name
+    padding-top: 20px
+  //
+
+  .quickcheckout-cart td.total
+    text-align: center
+  .quickcheckout-cart tbody td.total
+    padding-top: 20px
+  //
+  .quickcheckout-cart td.quantity
+    text-align: center
+    width: 10%
+    .input-group
+      padding-top: 10px
+      input
+        height: 32px
+
+        width: 50px
+        @media (min-width: $sm)
+          width: 70px
+        border: 1px solid $lighter-blue
+        margin: 0px -8px
+        padding: 6px 15px
+        color: $dark
+        font-family: $mono
+        font-size: rem(15px)
+        line-height: (32.48/15)
+      //btns
+      span.input-group-btn
+        button
+          position: relative
+          z-index: 1
+          width: 32px
+          height: 32px
+          border-radius: 4px
+          outline: none !important
+          border: none !important
+          font-weight: bold
+          font-size: 32px
+          line-height: 32px
+          padding: 0
+      //minus btn
+      span.input-group-btn:first-child
+        button
+          background-color: $gray
+          &:hover
+            background-color: darken($gray, 3)
+            box-shadow: 0 0 10px -3px darken($gray, 3)
+      //plus btn
+      span.input-group-btn:last-child
+        button:first-child
+          background-color: $dim-green
+          line-height: 36px
+          &:hover
+            background-color: lighten($dim-green, 3)
+            box-shadow: 0 0 10px -3px lighten($dim-green, 3)
+        button:last-child
+          display: none
+  //
+  .quickcheckout-cart tbody td.price1
+    padding-top: 20px
+  .quickcheckout-cart td.price1
+    text-align: center
+
+  //
+  //items in general
+  .table.quickcheckout-cart tbody
+    border-collapse: separate
+
+  .table.quickcheckout-cart tbody tr
+    position: relative
+    z-index: 1
+    //box-shadow: 0 0 16px rgba(212, 218, 230, 0.75)
+    //background-color: $white
+    border-bottom: 1px solid $dim-blue
+    @media (min-width: $sm)
+      border-bottom: none
+
+    td
+      position: relative
+      z-index: 1
+      padding-bottom: 30px
+
+    td:first-child
+      position: relative
+      z-index: 1
+      &:after
+        content: ''
+        position: absolute
+        z-index: -1
+        display: block
+        height: calc(100% - 15px)
+
+        //width: 100vw
+        @media (min-width: $sm)
+          width: 510px
+        @media (min-width: $md)
+          width: 690px
+        @media (min-width: $lg)
+          width: 930px
+        @media (min-width: $xl)
+          width: 1140px
+        box-shadow: 0 0 16px rgba(212, 218, 230, 0.75)
+        background-color: $white
+        top: 0
+        left: 0
+  //overflow fix
+  .quickcheckout-content, #cart1
+    @media (min-width: $sm)
+      overflow: visible !important
+  //img
+  .quickcheckout-cart td.image img
+    width: 47px
+    border: none
+    height: auto
+  .total-wrap
+    font-size: rem(16px)
+    font-weight: 700
+    line-height: (32.48/16)
+    &:last-child
+      padding-bottom: rem(30)
+  //payment-address
+  #payment-address
+    box-shadow: 0 0 16px rgba(212, 218, 230, 0.75)
+    background-color: $white
+    border: none
+  .quickcheckout-heading
+    color: $dark
+    margin-top: 0
+    padding: 27px 24px 0px 24px
+    background-color: transparent
+
+    font-size: rem(16px)
+    font-weight: 700
+    line-height: 1.5
+    i
+      display: none
+    &:after
+      content: ':'
+    &:before
+      content: 'ОФОРМЛЕНИЕ ЗАКАЗА'
+      display: block
+      color: $dark
+      font-size: rem(24px)
+      @media (min-width: $sm)
+        font-size: rem(30px)
+      font-weight: 700
+      line-height: (34/30)
+      margin-bottom: rem(20)
+      text-transform: uppercase
+  .quickcheckout-content
+    border: none
+    .control-label
+      color: $dark
+      font-size: rem(15px)
+      line-height: (32.48/15)
+      font-weight: 400
+      //padding-bottom: 9px
+    input, select
+      width: 278px
+      height: 35px
+      border: 1px solid $lighter-blue
+      background-color: $white
+      border-radius: rem(8)
+  //
+  @media (min-width: $lg)
+    .row .col-md-12
+      position: relative
+      display: flex
+      flex-wrap: wrap
+    .row .col-md-12 > .qc-step:first-child
+      width: 100%
+    .row .col-md-12 > .qc-step
+      width: 50%
+    //made by js
+    .continue-step
+      //width: 50%
+      //position: absolute
+      //top: 100%
+      //right: 0
+      //background-color: blue
+    .shipping-method-parent
+      //background-color: pink
+  #payment-method
+    @media (min-width: $lg)
+      margin-bottom: rem(38)!important
+    @media (min-width: $xl)
+      margin-bottom: rem(63)!important
+  #payment-method, #shipping-method
+    background-color: $lighter-blue
+    margin-bottom: rem(30)
+
+    margin-top: rem(30)
+    @media (min-width: $lg)
+      margin-left: rem(29)
+      margin-top: 0
+
+    padding: rem(30) rem(10) rem(30) rem(10)
+    @media (min-width: $sm)
+      padding: rem(38) rem(64) rem(42) rem(64)
+
+    .quickcheckout-heading
+      padding: 0 0 rem(22) 0
+      &:before
+        content: none
+    .quickcheckout-content
+      margin: 0
+      padding: 0
+      p
+        font-size: rem(15px)
+        font-weight: 400
+        line-height: (32.48/15)
+    table td
+      border: none
+      &:nth-child(1)
+        padding: 0!important
+        width: 14px!important
+        height: 14px!important
+        input
+          margin-top: 4px
+          width: 14px!important
+          height: 14px!important
+        .chb-circle
+          margin-top: 4px
+          width: 14px
+          height: 14px
+          border-radius: 50%
+          background-color: $white
+          position: relative
+          &:after
+            +mt
+            content: ''
+            position: absolute
+            left: 50%
+            top: 50%
+            transform: translateX(-50%) translateY(-50%)
+            width: 7px
+            height: 7px
+            border-radius: 50%
+            background-color: $green
+            opacity: 0
+        input:checked + .chb-circle:after
+          opacity: 1
+      &:nth-child(2)
+        padding: 0
+        label
+          position: relative
+          width: 100%
+          padding-left: 16px
+          font-size: rem(14)
+    .table-price-shipping:last-child
+      display: none
+      padding-top: 0!important
+      padding-bottom: 0!important
+  #button-payment-method
+    @extend .btn-red-frame
+
+.hidden-xs
+  @media (max-width: $sm)
+    display: none !important

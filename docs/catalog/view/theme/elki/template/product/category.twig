@@ -1,0 +1,169 @@
+{{ header }}
+<div class="breadscrums">
+  <div class="container">
+    <div class="swiper-container breadcrumb-slider-js">
+      <ul class="swiper-wrapper">
+        {% for breadcrumb in breadcrumbs %}
+          {% if  loop.index < loop.length %}
+            <li class="swiper-slide">
+              <a href="{{ breadcrumb.href }}" class="breadcrumb-item">
+                {{ breadcrumb.text }}
+              </a>
+            </li>
+          {% else %}
+            {# last breadcrumb #}
+            <li class="swiper-slide">
+              <span class="breadcrumb-item">{{ breadcrumb.text }}</span>
+            </li>
+          {% endif %}
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="product-category" class="container category__container">
+  <div class="row">
+    {% if column_left %}
+      <div class="col-md-6 col-lg-3">
+        {{ column_left }}
+      </div>
+    {% endif %}
+    <div id="content" class="col-lg-9">
+      {{ content_top }}
+      <h1 class="category__name">{{ heading_title }}</h1>
+      {# chose sub cat #}
+      {% if categories %}
+        <div class="category category__ch-sub-parent">
+          <div class="category__sub-txt">
+            {{ text_refine }}
+          </div>
+          <div class="row category__ch-sub-row">
+            {% for category in categories %}
+              <div class="col-6 col-md-4 col-xl-4 text-center category__ch-sub-col">
+
+                <a class="category__ch-sub-item" href="{{ category.href }}">
+                  <div class="category__ch-sub-img">
+                    <img src="{{ category.thumb }}" alt="" title="{{ category.name }}" loading="lazy"/>
+                  </div>
+                  <span class="category__ch-sub-txt">
+                    {{ category.name }}
+                  </span>
+                </a>
+
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      {# end chose sub cat #}
+
+      {% if products %}
+        <div class="row category__items-row">
+          {% if categories %}
+            <div class="col-12">
+              <div class="category__sub-txt">
+                Товары категории
+              </div>
+            </div>
+          {% endif %}
+          {% for product in products %}
+            <div class="prodCard__col col-lg-4 col-sm-6">
+              <div class="prodCard__item">
+                {% if product.special %}
+                  <div class="prodCard__label-box">
+                    <div class="prodCard__label calc-price-js" data-price="{{ product.price }}" data-special="{{ product.special }}"></div>
+                  </div>
+                {% endif %}
+                <a href="{{ product.href }}" class="prodCard__img">
+                  <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" loading="lazy">
+                </a>
+
+                <h4 class="prodCard__title">
+                  <a href="{{ product.href }}">{{ product.name }}</a>
+                </h4>
+                <p class="prodCard__tag text-center">
+                  {% if product.tag %}
+                    {{ product.tag }}
+                  {% endif %}
+                </p>
+                <!--<p>{{ product.description }}</p>-->
+                {% if product.rating %}
+                  <div class="rating">
+                    {% for i in 5 %}
+                      {% if product.rating < i %}
+                        <span class="fa fa-stack">
+                        <i class="fa fa-star-o fa-stack-2x"></i>
+                      </span>
+                      {% else %}
+                        <span class="fa fa-stack">
+                        <i class="fa fa-star fa-stack-2x"></i>
+                        <i class="fa fa-star-o fa-stack-2x"></i>
+                      </span>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                {% if product.price %}
+                  <p class="prodCard__price">
+                    {% if not product.special %}
+                      <span class="price-txt price-new">{{ product.price }}</span>
+                    {% else %}
+                      <span class="price-txt price-old">{{ product.price }}</span>
+                      <span class="price-txt price-new">{{ product.special }}</span>
+                    {% endif %}
+                    {% if product.tax %}
+                      <span class="price-txt price-tax">{{ text_tax }} </span>
+                      <span class="price-txt price-new">{{ product.tax }}</span>
+                    {% endif %}
+                  </p>
+                {% endif %}
+                <a type="button" href="{{ product.href }}" class="prodCard__buy-btn">
+                  {{ button_cart }}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="category__pagination">
+          {{ pagination }}
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-left"></div>
+          <!-- <div class="col-sm-6 text-right">{{ results }}</div> -->
+        </div>
+      {% endif %}
+      {# nothing found #}
+      {% if not categories and not products %}
+        <p class="category__sub-txt">
+          {{ text_empty }}
+        </p>
+        <a href="{{ continue }}" class="btn-red-frame">
+          {{ button_continue }}
+        </a>
+      {% endif %}
+      {{ content_bottom }}
+    </div>
+    {{ column_right }}
+  </div>
+  {% if thumb or description %}
+  <div class="row mt-3 mt-md-5">
+    {#
+      {% if thumb %}
+        <div class="col-sm-2">
+          <img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail" />
+        </div>
+      {% endif %}
+    #}
+    {% if description %}
+      <div class="col-sm-12 description new-prod-descr">
+        {{ description }}
+      </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+{{ footer }}

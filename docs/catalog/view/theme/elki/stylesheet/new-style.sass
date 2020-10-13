@@ -1,0 +1,290 @@
+//base files
+
+$output-bourbon-deprecation-warnings: false
+@import "bourbon/app/assets/stylesheets/bourbon.scss"
+@import "mixin"
+
+@import "vars"
+@import "fonts"
+
+//base styles here
+
+@media (min-width: 1200px)
+  .container
+    max-width: 1170px
+
+body, html
+  padding: 0
+  margin: 0
+  font-family: $default-font
+  color: $dark
+
+  font-size: 14px
+  @media (min-width: $lg)
+    font-size: 15px
+  @media (min-width: $xl)
+    font-size: 16px
+
+
+#page_content
+  overflow-x: hidden
+  width: 100%
+
+body
+  //!!
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  &::before
+    content: ''
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    +mt
+    background-color: #000000
+    opacity: 0
+    z-index: -1
+
+  &.fixed
+    overflow: hidden
+    position: absolute
+    width: 100%
+    left: 0
+    top: 0
+    z-index: 999
+
+    &::before
+      z-index: 999
+      opacity: 0.76
+
+.pixel-perfect
+  top: 0
+  @include a-cent(x)
+  display: block
+  pointer-events: none
+  z-index: 1000
+  overflow: hidden
+  width: 100%
+  height: 400vh
+  background-position: center 0
+  //background-position: center 85px
+  opacity: 0
+  opacity: 0.7
+
+.pointer-event-none
+  pointer-events: none
+  cursor: not-allowed
+
+.btn-frame
+  text-align: center
+  border: none !important
+  outline: none !important
+
+  display: inline-block
+  vertical-align: top
+
+  padding: 13px 20px
+  @media (min-width: 1200px)
+    padding: 12px 20px 13px 20px
+
+  min-width: 161px
+  border-radius: 100px
+
+  //txt
+  color: $white !important
+  font-family: $mono
+  font-size: rem(15)
+  font-weight: 400
+  line-height: 1
+
+.green-btn-frame
+  @extend .btn-frame
+
+  background-color: $green
+
+  &:hover
+    background-color: lighten($green, 3)
+    box-shadow: 0 0 10px -3px lighten($green, 12)
+
+.btn-red-frame
+  @extend .btn-frame
+
+  background-color: $cherry-red
+
+  &:hover
+    background-color: lighten($cherry-red, 3)
+    box-shadow: 0 0 10px -3px lighten($cherry-red, 12)
+
+a
+  +mt
+  text-decoration: none
+  color: $dim-blue
+
+  &:hover
+    text-decoration: none
+    color: $green
+
+//
+.block_tovar_home
+  & > .container
+    & > div
+      text-align: center
+
+      h2
+        font-size: rem(30px)
+        margin-bottom: rem(12)
+        font-weight: 700
+        line-height: 1
+        text-transform: uppercase
+
+      .sub_title
+        color: $dark
+        line-height: 1.5
+        max-width: rem(909px)
+        margin: 0 auto
+
+    & > div:first-child
+      h2
+        letter-spacing: 1.5px
+
+.breadscrums
+  background-color: $lighter-blue
+  .container
+  .swiper-container
+  .swiper-wrapper
+    list-style: none
+    margin: 0
+    padding: 0
+  .swiper-slide
+    width: auto
+  .breadcrumb-item
+    padding: rem(12) 0
+    @media (min-width: $xl)
+      padding: 12px 0 10px 0
+
+    display: flex
+    align-items: center
+    line-height: 1.5
+    color: $breadcrumbs-gray
+    //color: $white
+    &:hover
+      color: $green
+    &:before
+      content: none !important
+    &:after
+      content: '>'
+      display: inline-block
+      padding: 0 4px
+
+  span.breadcrumb-item
+    color: $dark
+    &:hover
+      color: $dark
+    &:after
+      content: none
+
+//empty-basket
+.empty-basket
+  padding: rem(50) 0
+  h1
+    font-weight: 700
+    text-transform: uppercase
+
+    font-size: rem(30)
+    line-height: (34/30)
+    margin-bottom: rem(22)
+  p
+    font-weight: 700
+    line-height: 1.5
+    margin-bottom: rem(30)
+
+  .empty-basket-btn
+    @extend .btn-red-frame
+
+    @media (min-width: $sm)
+      min-width: 235px
+
+
+//color-page-frame
+.color-page-frame
+  padding: rem(20px) 0
+  @media (min-width: $sm)
+    padding: rem(25px) 0
+  @media (min-width: $xl)
+    padding: rem(28px) 0 rem(33) 0
+  .breadscrums
+    background-color: transparent
+
+    margin-bottom: rem(20px)
+    @media (min-width: $lg)
+      margin-bottom: rem(27px)
+    a.breadcrumb-item
+      color: $white
+      &:hover
+        color: lighten($green, 5)
+  .page-title
+    display: flex
+    flex-wrap: wrap
+    align-items: flex-start
+    h1
+      color: $white
+      font-weight: 700
+      text-transform: uppercase
+      line-height: 1
+      margin-bottom: 0
+
+      font-size: rem(35)
+      @media (min-width: $sm)
+        font-size: rem(45)
+        letter-spacing: 1.5px
+      @media (min-width: $xl)
+        letter-spacing: 3.5px
+        font-size: rem(73px)
+    .page-title-img
+      margin-left: rem(15)
+      width: rem(25px)
+      height: rem(25px)
+      @media (min-width: $sm)
+        width: rem(33px)
+        height: rem(33px)
+      @media (min-width: $xl)
+        width: rem(58px)
+        height: rem(58px)
+        margin-left: rem(22)
+
+      display: flex
+      align-items: center
+      justify-content: center
+      img
+        width: auto
+        height: auto
+        max-width: 100%
+        max-height: 100%
+
+//about page
+
+//end base styles
+
+
+//parts
+@import "header"
+@import "cart"
+@import "baner"
+@import "vantage"
+@import "prod-card"
+@import "promo"
+@import "news"
+@import "footer"
+@import "modal"
+
+//pages
+@import "about"
+@import "contacts"
+@import "delivery"
+@import "product-page"
+@import "catalog"
+@import "checkout"
+
+@import "media"

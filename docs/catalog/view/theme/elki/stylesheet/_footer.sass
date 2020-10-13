@@ -1,0 +1,159 @@
+.footer
+  margin-top: auto
+  background-color: $dark
+  color: $white
+
+  padding: rem(35px) 0 rem(50px) 0
+  @media (min-width: $lg)
+    padding: rem(52px) 0 rem(86px) 0
+  &__row
+    display: flex
+    flex-wrap: wrap
+    align-items: stretch
+
+    position: relative
+    margin: 0 -15px
+
+  &__col
+    flex-shrink: 0
+    padding: 0 15px
+
+    margin-bottom: 30px
+    @media (min-width: $xl)
+      margin-bottom: 0
+  //logo-col
+  &__col.logo-col
+    width: 100%
+    @media (min-width: $md)
+      width: 240px
+    @media (min-width: $xl)
+      width: 20%
+
+    @media (min-width: $xl)
+      padding-top: 8px
+      padding-right: 12px
+    p
+      @media (min-width: $xl)
+        padding-left: 3px
+
+      color: $footer-gray
+      font-family: $mono
+      font-size: 12px
+      line-height: (15.48/12)
+
+      margin-bottom: rem(27px)
+      &:last-child
+        margin-bottom: 0
+  &__logo
+    display: block
+    margin-bottom: rem(20px)
+    img
+      width: auto
+      height: auto
+      max-width: 100%
+
+  //contacts-col
+  &__col.contacts-col
+    width: 100%
+    @media (min-width: $md)
+      width: calc(100% - 240px)
+      display: flex
+      flex-wrap: wrap
+      gap: 10px
+      align-items: flex-start
+      justify-content: space-between
+    @media (min-width: $xl)
+      display: block
+      width: 19%
+
+  &__cont-item
+    @media (min-width: $sm)
+      display: inline-block
+      vertical-align: top
+      width: 49%
+    @media (min-width: $md)
+      display: block
+      width: auto
+    margin-bottom: rem(7px)
+    &:first-child
+      .footer__cont-icon
+        margin-right: 1px
+  &__cont-item + &__cont-item
+    margin-bottom: rem(11px)
+
+  &__cont-item-head
+    display: flex
+    align-items: center
+    margin-bottom: rem(1)
+  &__tell-and-call-b
+
+  &__cont-icon
+    width: 24px
+    height: 24px
+    margin-right: rem(11)
+
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    img
+      width: auto
+      height: auto
+      max-width: 100%
+      max-height: 100%
+
+  &__cont-head-txt
+    color: $footer-gray
+    font-family: $mono
+    font-size: rem(15px)
+    line-height: (32.48/15)
+
+  &__cont-val
+    font-family: $mono
+    font-size: rem(15px)
+    line-height: 1.5
+    padding-left: 3px
+  &__tell-link
+    display: block
+    color: $white
+    font-size: rem(15px)
+    line-height: (32.48/15)
+    margin-bottom: rem(8)
+
+  &__order-call
+    @extend .green-btn-frame
+
+  &__col.menu-col
+    width: 50%
+    flex-grow: 0
+    @media (min-width: $md)
+      &:not(:last-child)
+        flex-grow: 1
+      width: auto
+      max-width: 300px
+
+    font-family: $mono
+    ul
+      margin: 0
+      padding: 0
+      list-style: none
+      li
+        a
+          display: block
+          color: $white
+          &:hover
+            color: $green
+
+          font-size: rem(15px)
+          line-height: (32.48/15)
+  &__col-title
+    font-size: rem(15px)
+    line-height: (32.48/15)
+    color: $footer-green
+    font-weight: 700
+    margin-bottom: 0
+  &__
+  &__
+  &__
+  &__
+  &__
+  &__

@@ -1,0 +1,60 @@
+{% if categories %}
+  <nav class="">
+    <ul class="navbar main-menu">
+    <li class="navbar-header">
+      <span class="category-txt">
+        {{ text_category }}
+      </span>
+      <!-- <button type="button" class="btn btn-navbar navbar-toggle d-block d-sm-none" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button> -->
+      <ul class="submenu">
+
+        {% for category in categories %}
+
+          {% if category.children %}
+            <li class="submenu-item item-has-children">
+              <div class="submenu-item-links">
+                <a href="{{ category.href }}" class="submenu-link">
+                  {{ category.name }}
+                </a>
+                <a href="{{ category.href }}" class="submenu-link dd-link">
+
+                </a>
+              </div>
+              <!--sub 2 lvl-->
+              {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+                <ul class="submenu-2">
+                  {% for child in children %}
+                    <li class="submenu-2-item">
+                      <a href="{{ child.href }}">{{ child.name }}</a>
+                    </li>
+                  {% endfor %}
+                  {#<li class="submenu-2-item">
+                    <a href="{{ category.href }}" class="see-all">{{ text_all }}"{{ category.name }}"</a>
+                  </li>#}
+                </ul>
+              {% endfor %}
+
+            </li>
+
+          {% else %}
+            <li class="submenu-item">
+              <div class="submenu-item-links">
+                <a href="{{ category.href }}" class="submenu-link lonely-link">{{ category.name }}</a>
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+    <li class=""><a href="/delivery">Доставка</a></li>
+    <li class=""><a href="/how_order">Как заказать</a></li>
+    <li class=""><a href="/where_buy">Где купить</a></li>
+    <li class=""><a href="/galereya">Галерея</a></li>
+    <li class=""><a href="/about">О компании</a></li>
+    <li class=""><a href="/contact">Контакты</a></li>
+    </ul>
+    <!--cart-->
+    {{cart}}
+    <!--end cart-->
+  </nav>
+{% endif %} 

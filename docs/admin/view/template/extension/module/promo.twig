@@ -1,0 +1,166 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}"
+                class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
+                  class="fa fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module"
+              class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name"
+                     class="form-control"/>
+              {% if error_name %}
+                <div class="text-danger">{{ error_name }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="status" id="input-status" class="form-control">
+                {% if status %}
+                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                  <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                  <option value="1">{{ text_enabled }}</option>
+                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+
+          <!--add -->
+          <div class="form-group">
+            <!--first-->
+            <div class="col-12">
+              <b style="line-height: 60px; font-size: 20px; padding-left: 10px;">{{ custom_first }}</b>
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-txt-first">{{ custom_text }}</label>
+            <div class="col-sm-10">
+              <textarea name="txt_first" id="input-txt-first" placeholder="{{ custom_text }}" class="form-control" style="min-height: 120px">
+                {{ txt_first }}
+              </textarea>
+              {% if error_txt_first %}
+                <div class="text-danger">{{ error_txt_first }}</div>
+              {% endif %}
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-image-first">{{ custom_image }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="image_first" value="{{ image_first }}" id="input-image-first" placeholder="{{ custom_image }}" class="form-control" />
+              {% if error_image_first %}
+                <div class="text-danger">{{ error_image_first }}</div>
+              {% endif %}
+            </div>
+            <!--second-->
+            <div class="col-12">
+              <b style="line-height: 60px; font-size: 20px; padding-left: 10px;">{{ custom_second }}</b>
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-txt-second">{{ custom_text }}</label>
+            <div class="col-sm-10">
+              <textarea type="text" name="txt_second" id="input-txt-second" placeholder="{{ custom_text }}" class="form-control" style="min-height: 120px" >
+                {{ txt_second }}
+              </textarea>
+              {% if error_txt_second %}
+                <div class="text-danger">{{ error_txt_second }}</div>
+              {% endif %}
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-image-second">{{ custom_image }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="image_second" value="{{ image_second }}" id="input-image-second" placeholder="{{ custom_image }}" class="form-control" />
+              {% if error_image_second %}
+                <div class="text-danger">{{ error_image_second }}</div>
+              {% endif %}
+            </div>
+            
+            <!--third-->
+            <div class="col-12">
+              <b style="line-height: 60px; font-size: 20px; padding-left: 10px;">{{ custom_third }}</b>
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-txt-third">{{ custom_text }}</label>
+            <div class="col-sm-10">
+              <textarea type="text" name="txt_third" id="input-txt-third" placeholder="{{ custom_text }}" class="form-control" style="min-height: 120px">
+                {{ txt_third }}
+              </textarea>
+              {% if error_txt_third %}
+                <div class="text-danger">{{ error_txt_third }}</div>
+              {% endif %}
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-image-third">{{ custom_image }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="image_third" value="{{ image_third }}" id="input-image-third" placeholder="{{ custom_image }}" class="form-control" />
+              {% if error_image_third %}
+                <div class="text-danger">{{ error_image_third }}</div>
+              {% endif %}
+            </div>
+            <!--after-txt-->
+            <div class="col-12">
+              <b style="line-height: 60px; font-size: 20px; padding-left: 10px;">{{ custom_after }}</b>
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-txt-after">{{ custom_text }}</label>
+            <div class="col-sm-10">
+              <textarea type="text" name="txt_after" id="input-txt-after" placeholder="{{ custom_text }}" class="form-control" style="min-height: 120px" >
+                {{ txt_after }}
+              </textarea>
+              {% if error_txt_after %}
+                <div class="text-danger">{{ error_txt_after }}</div>
+              {% endif %}
+            </div>
+
+            <!--gray-->
+            <div class="col-12">
+              <b style="line-height: 60px; font-size: 20px; padding-left: 10px;">{{ custom_gray }}</b>
+            </div>
+
+            <label class="col-sm-2 control-label" for="input-txt-gray">{{ custom_text }}</label>
+            <div class="col-sm-10">
+              <textarea type="text" name="txt_gray" id="input-txt-gray" placeholder="{{ custom_text }}" class="form-control" style="min-height: 120px" >
+                {{ txt_gray }}
+              </textarea>
+              {% if error_txt_gray %}
+                <div class="text-danger">{{ error_txt_gray }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <!--end add-->
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

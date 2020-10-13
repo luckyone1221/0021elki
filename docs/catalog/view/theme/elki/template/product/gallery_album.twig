@@ -1,0 +1,66 @@
+{{ header }}
+<div class="breadscrums">
+  <div class="container">
+    <div class="swiper-container breadcrumb-slider-js">
+      <ul class="swiper-wrapper">
+        {% for breadcrumb in breadcrumbs %}
+          {% if  loop.index < loop.length %}
+            <li class="swiper-slide">
+              <a href="{{ breadcrumb.href }}" class="breadcrumb-item">
+                {{ breadcrumb.text }}
+              </a>
+            </li>
+          {% else %}
+            {# last breadcrumb #}
+            <li class="swiper-slide">
+              <span class="breadcrumb-item">{{ breadcrumb.text }}</span>
+            </li>
+          {% endif %}
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{#  <div class="breadscrums">
+  <div class="container">
+    <div class="row">
+      <ul>
+       {% for breadcrumb in breadcrumbs %}
+       {% if  loop.index < loop.length %}
+      <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li> {% else %}<li style="text-decoration: unset"><span>{{ breadcrumb.text }}</span>{% endif %}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>#}
+
+<div id="information-information" class="container mt-3">
+  <div class="">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h1>{{ heading_title }}</h1>
+        
+        <div class="row">
+          {% for gallery_album in gallery_albums %}
+           <div class='col-md-4'>
+            <div class="thumbnail">
+              <a href="{{ gallery_album.url}}"><img src="{{ gallery_album.image }}" class="img-responsive"></a>
+              <div class="caption">
+                <center><h4 style="color:#009800;"><b>{{ gallery_album.title }}</b></h4></center>
+              </div>
+           </div>
+          </div>
+           {% endfor %}
+         </div>
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

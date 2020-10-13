@@ -1,0 +1,32 @@
+{{ header }}
+<div id="information-information" class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h1>{{ heading_title }}</h1>
+        
+        {% for gallery_album in gallery_albums %}
+         <div class='col-md-4'>
+          <div class="thumbnail">
+            <a href="{{ gallery_album.url}}"><img src="{{ gallery_album.image }}" class="img-responsive"></a>
+            <div class="caption">
+              <center><h4 style="color:#66ccff;"><b>{{ gallery_album.title }}</b></h4></center>
+            </div>
+         </div>
+        </div>
+         {% endfor %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

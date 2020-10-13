@@ -1,0 +1,45 @@
+{# <h1>news(blog_latest)</h1> #}
+<div class="news">
+  <div class="container">
+    <h2 class="news__headline">
+      {{ heading_title }}
+    </h2>
+    <div class="news__row row">
+      {% for article in articles %}
+        <div class="news__col col-sm-6 col-lg-4">
+          <div class="news__item">
+
+            <div class="news__date">
+              {% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+              <span class="news__date-txt">
+              {{ article.date_added|date("j") }}
+                {{ mnths[article.date_added|date("n")] }}
+                {{ article.date_added|date("Y") }}
+            </span>
+            </div>
+
+            <div class="news__inner">
+              <a class="news__title" href="{{ article.href }}">
+                «{{ article.name }}»
+              </a>
+              <a href="{{ article.href }}" class="news__btn">
+                Читать далее
+              </a>
+            </div>
+            {#
+            <div class="news__descr">
+              {{ article.description }}
+            </div>
+            #}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{#	  <div class="button-group">
+        <button type="button" onclick="location.href = ('{{ article.href }}');"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_more }}</span></button>
+         <button type="button" data-toggle="tooltip" title="{{ article.date_added }}" "><i class="fa fa-clock-o"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ text_views }} {{ article.viewed }}" "><i class="fa fa-eye"></i></button>
+     </div>#}

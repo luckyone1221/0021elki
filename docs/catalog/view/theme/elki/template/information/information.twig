@@ -1,0 +1,79 @@
+{{ header }}
+{% if page_id == 4 %}
+  <div class="color-page-frame" style="background-color: #d1c7e0;">
+{% elseif page_id == 6 %}
+  <div class="color-page-frame" style="background-color: #c7e0df;">
+{% elseif page_id == 8 %}
+  <div class="color-page-frame" style="background-color: #e0c7d6;">
+{% elseif page_id == 7 %}
+  <div class="color-page-frame" style="background-color: #d2e0c7;">
+{% else %}
+  <div class="color-page-frame" style="background-color: #c7e0df;">
+{% endif %}
+  <div class="container">
+    <div class="breadscrums">
+      <div class="swiper-container breadcrumb-slider-js">
+        <ul class="swiper-wrapper">
+          {% for breadcrumb in breadcrumbs %}
+            {% if  loop.index < loop.length %}
+              <li class="swiper-slide">
+                <a href="{{ breadcrumb.href }}" class="breadcrumb-item">
+                  {{ breadcrumb.text }}
+                </a>
+              </li>
+            {% else %}
+              {# last breadcrumb #}
+              <li class="swiper-slide">
+                <span class="breadcrumb-item">{{ breadcrumb.text }}</span>
+              </li>
+            {% endif %}
+
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-title">
+      <h1>{{ heading_title }}</h1>
+      <div class="page-title-img">
+        {# optional img #}
+          {% if page_id == 4 %}
+            <img src="catalog/view/theme/elki/image/new-page-icon-about.png" alt="{{ heading_title }}">
+          {% elseif page_id == 6 %}
+            <img src="catalog/view/theme/elki/image/new-page-icon-delivery.png" alt="{{ heading_title }}">
+          {% elseif page_id == 8 %}
+            <img src="catalog/view/theme/elki/image/new-page-icon-where-buy.png" alt="{{ heading_title }}">
+          {% elseif page_id == 7 %}
+            <img src="catalog/view/theme/elki/image/new-page-icon-order.png" alt="{{ heading_title }}">
+          {% else %}
+            <img src="catalog/view/theme/elki/image/new-page-icon-about.png" alt="{{ heading_title }}">
+          {% endif %}
+        {# img #}
+      </div>
+    </div>
+  </div>
+</div>
+<div id="information-information" class="container">
+  <div class="row">
+    {{ column_left }}
+    {% if column_left and column_right %}
+      {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+      {% set class = 'col-sm-9' %}
+    {% else %}
+      {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }} info-content">
+      {{ content_top }}
+      <div class="information-artical">
+        {{ description }}
+      </div>
+      <a href="{{ continue }}" class="continue-shop-btn">
+        {{ button_continue_shopping }}
+      </a>
+    </div>
+    {{ column_right }}
+  </div>
+</div>
+{{ content_bottom }}
+{{ footer }}

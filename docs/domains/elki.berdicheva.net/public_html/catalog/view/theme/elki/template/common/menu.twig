@@ -1,0 +1,43 @@
+{% if categories %}
+  <nav class="">
+    <ul class="navbar main-menu">
+    <li class="navbar-header"><span id="category" data-toggle="collapse" data-target=".navbar-ex1-collapse">{{ text_category }}</span>
+      <!-- <button type="button" class="btn btn-navbar navbar-toggle d-block d-sm-none" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button> -->
+    </li>
+          <li class="d-none d-lg-inline"><a href="/delivery">Информация</a></li>
+          <li class="d-none d-lg-inline"><a href="/how_order">Как заказать</a></li>
+          <li class="d-none d-lg-inline"><a href="/where_buy">Где купить</a></li>
+          <li class="d-none d-lg-inline"><a href="/galereya">Галерея</a></li>
+          <li class="d-none d-lg-inline"><a href="/about">О компании</a></li>
+          <li class="d-none d-lg-inline"><a href="/contact">Контакты</a></li>
+    </ul>
+    {{cart}}
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        {% for category in categories %}
+        {% if category.children %}
+        <li class="dropdown"><a href="{{ category.href }}">{{ category.name }}</a><a href="{{ category.href }}" class="dropdown-toggle" data-toggle="dropdown">&nbsp;</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-inner"> {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+              <ul class="list-unstyled">
+                {% for child in children %}
+                <li><a href="{{ child.href }}">{{ child.name }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endfor %}</div>
+            <a href="{{ category.href }}" class="see-all">{{ text_all }} {{ category.name }}</a> </div>
+        </li>
+        {% else %}
+        <li><a href="{{ category.href }}">{{ category.name }}</a></li>
+        {% endif %}
+        {% endfor %}
+          <li class="d-inline d-lg-none"><a href="/delivery">Информация</a></li>
+          <li class="d-inline d-lg-none"><a href="/how_order">Как заказать</a></li>
+          <li class="d-inline d-lg-none"><a href="/where_buy">Где купить</a></li>
+          <li class="d-inline d-lg-none"><a href="/galereya">Галерея</a></li>
+          <li class="d-inline d-lg-none"><a href="/about">О компании</a></li>
+          <li class="d-inline d-lg-none"><a href="/contact">Контакты</a></li>
+      </ul>
+    </div>
+  </nav>
+{% endif %} 

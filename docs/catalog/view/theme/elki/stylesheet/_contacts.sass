@@ -1,0 +1,26 @@
+.contact
+  padding: rem(30px) 15px
+  @media (min-width: $lg)
+    padding: rem(22px) 15px rem(55px) 15px
+  &__txt
+    padding-bottom: rem(30)
+    @media (min-width: $xl)
+      padding-bottom: rem(155)
+    p
+    p:last-child
+      margin-bottom: 0
+  &__map
+    height: rem(415)
+
+    margin: 0 -15px rem(30) -15px
+    @media (min-width: $sm)
+      margin: 0 0 rem(42) 0
+
+    iframe
+      width: 100%!important
+      height: 100%!important
+    //& > img
+      width: 100%
+      height: 100%
+      object-position: center
+      object-fit: cover

@@ -1,0 +1,27 @@
+{# <h3>{{ heading_title }}</h3> #}
+<hr>
+<div class="row block_news my-3">
+ {% for article in articles %}
+  <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="product-thumb transition news">
+      <div class="wrap_title">
+        <div class="block_date">
+          {% set mnths = ['','января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'] %}
+          <span class="number_date">{{ article.date_added|date("j") }}</span> {{ mnths[article.date_added|date("n")] }} {{ article.date_added|date("Y") }}
+        </div>
+        <div class="caption block_title">
+        <a href="{{ article.href }}">{{ article.name }}</a>
+        </div>
+      </div>
+      <hr class="news_line"/>
+      <div class="news_text">
+        {{ article.description }}</div>
+{#	  <div class="button-group">
+        <button type="button" onclick="location.href = ('{{ article.href }}');"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_more }}</span></button>
+         <button type="button" data-toggle="tooltip" title="{{ article.date_added }}" "><i class="fa fa-clock-o"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ text_views }} {{ article.viewed }}" "><i class="fa fa-eye"></i></button> 
+     </div>#}
+    </div>
+  </div>
+  {% endfor %}
+</div>

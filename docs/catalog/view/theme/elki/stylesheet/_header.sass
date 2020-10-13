@@ -1,0 +1,402 @@
+.top-line
+  background-color: $light-blue
+  position: relative
+  z-index: 11000
+
+  &__container
+    @media (max-width: $sm)
+      padding-right: 0
+  //row
+  &__row
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+  &__txt-col
+    color: $white
+    font-size: 12px
+    font-weight: 400
+    line-height: (15.5/12)
+
+  &__cart-col
+    //height: 48px
+    .cart
+      background-color: $dark
+      .cart__dd-btn
+        display: flex
+        align-items: center
+        height: 100%
+
+        padding: rem(10px) rem(20px)
+        @media (min-width: 1200px)
+          padding: 13px 20px 9px 18px
+          min-width: 230px
+
+        color: $white
+        font-size: rem(15px)
+        line-height: 1.7
+        text-decoration: none !important
+
+        &:before
+          content: ''
+          padding-right: 17px
+
+          background-image: url(../image/new_cart-i.png)
+          background-repeat: no-repeat
+          background-size: contain
+          width: 20px
+          height: 18px
+
+          margin-right: 17px
+
+          position: relative
+          top: -3px
+        &:after
+          content: none !important
+      .cart_ico
+        display: none
+
+.header
+  &__top
+    border-bottom: 1px solid $lighter-blue
+    box-shadow: 0px 1px 0px 0px $light-blue
+
+    padding: rem(15px) 0px
+    @media (min-width: 1200px)
+      padding: 15px 0px 13px 0px
+
+  &__row
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+  //1
+  &__tel
+    display: flex
+    align-items: center
+    text-decoration: none !important
+
+  &__tel-icon
+    background-image: url(../image/new-phone-link.png)
+
+    width: rem(20)
+    height: rem(20)
+    @media (min-width: $sm)
+      width: rem(24)
+      height: rem(24)
+    background-size: cover
+    margin-right: rem(9px)
+
+  &__tel-txt
+    @media (min-width: 1200px)
+      top: -1px
+    position: relative
+    color: $dark
+    line-height: 1
+    white-space: nowrap
+
+    @media (min-width: 1200px)
+      width: rem(185px)
+      &:hover
+        span:first-child
+          font-size: rem(20)
+          font-weight: 700
+    span:first-child
+      +mt()
+      font-size: rem(14px)
+      @media (min-width: $sm)
+        font-size: rem(15px)
+    span:last-child
+      font-size: rem(18px)
+      @media (min-width: $sm)
+        font-size: rem(20px)
+      font-weight: 700
+  //2
+  &__logo
+    @media (min-width: 1200px)
+      position: relative
+      left: -19px
+
+    display: block
+    max-width: 100%
+    img
+      width: auto
+      height: auto
+      max-width: 100%
+      max-height: 100%
+  //3
+  &__feedback-call
+    .zvonok_top
+      @extend .green-btn-frame
+      @media (max-width: 518px)
+        padding: 10px
+        min-width: 0
+  //menu
+  .mob-menu-header
+    padding: 15px 0 30px 0
+  &__menu
+    position: fixed
+    top: 0
+    right: 0
+    z-index: 10000
+    background-color: $white
+    height: 100vh
+    width: 30vw
+    min-width: 280px
+
+    +mt
+    transform: translateX(120%)
+    &.active
+      transform: translateX(0%)
+
+    @media (max-width: $xl)
+      overflow-y: scroll
+    @media (min-width: $xl)
+      transform: translateX(0%) !important
+
+    @media (max-width: $xl)
+      padding-top: 60px
+    @media (min-width: $xl)
+      display: block
+      position: relative
+      width: 100%
+      height: auto
+      background-color: transparent
+
+    border-bottom: 1px solid $lighter-blue
+    box-shadow: 0px 10px 10px -10px $light-blue
+    .container
+      @media (min-width: $xl)
+        padding-right: 18px
+    //ul
+    ul.navbar.main-menu
+      list-style: none
+      padding: 0
+      margin: 0
+
+      display: block
+      @media (min-width: $xl)
+        display: flex
+        flex-wrap: nowrap
+        justify-content: flex-end
+      //li
+      & > li
+        &:first-child
+          position: relative
+          width: auto
+
+          .category-txt
+            display: flex
+            cursor: pointer
+
+            //txt
+            color: $dark
+            font-size: rem(15px)
+            font-weight: 400
+            line-height: 1
+
+            padding: rem(15) 0
+            @media (min-width: 1200px)
+              padding: 14px 0 18px 0
+
+            @include mt()
+            text-decoration: none
+            white-space: nowrap
+            &:hover
+              color: $green
+              text-shadow: 0 0 1px rgba($black, .3)
+            &:before
+              +mt()
+              display: block
+              width: 6px
+              height: 6px
+              border-radius: 50%
+              flex-shrink: 0
+              background-color: $dark
+
+              margin: 0 25px 0 0
+              content: ''
+              @media (min-width: $xl)
+                margin: 0 25px
+                content: none
+
+          &:hover
+            //submenu
+            .submenu
+              @media (min-width: $xl)
+                transform: scaleY(1)
+        //end 1st
+
+        width: auto
+        @media (min-width: 1200px)
+          width: 171px
+        & > a
+          //txt
+          @include mt()
+          text-decoration: none
+          white-space: nowrap
+          &:hover
+            color: $green
+            text-shadow: 0 0 1px rgba($black, .3)
+
+          color: $dark
+          font-size: rem(15px)
+          font-weight: 400
+          line-height: 1
+
+          //
+          display: flex
+
+          padding: rem(15) 0
+          @media (min-width: $xl)
+            padding: 14px 0 18px 0
+
+          align-items: center
+          &:before
+            content: ''
+            @include mt()
+            display: block
+            width: 6px
+            height: 6px
+            border-radius: 50%
+            flex-shrink: 0
+            background-color: $dark
+
+            margin: 0 25px 0 0
+            @media (min-width: $xl)
+              margin: 0 auto 0 auto
+    //sub-menu
+    .submenu
+      list-style: none
+      padding: 10px
+      width: 100%
+
+      display: none
+      &.active
+        display: block
+
+      @media (min-width: $xl)
+        display: block !important
+        position: absolute !important
+        z-index: 10000 !important
+        background-color: $white
+        box-shadow: 0px 15px 25px -15px black
+        width: 300px
+        top: 100% !important
+        left: 0 !important
+        +mt()
+        transform-origin: top
+        transform: scaleY(0)
+    //li
+    .submenu-item
+      //
+      &:last-child
+        .submenu-item-links
+          margin-bottom: 0
+      //links cont
+      .submenu-item-links
+        display: flex
+        margin-bottom: 15px
+      //a
+      .submenu-link
+        &:first-child
+          flex-grow: 1
+          flex-shrink: 0
+          border-radius: rem(5) 0 0 rem(5)
+          &.lonely-link
+            border-radius: rem(5)
+            border-right: 1px solid lighten($dark, 10)
+        //drop-down
+        &.dd-link
+          @extend .green-btn-frame
+          min-width: 0
+          width: 40px
+          border-radius: 0 rem(5) rem(5) 0
+
+          position: relative
+          &.active:after
+            transform: rotateX(180deg)
+          &:after
+            +mt
+            content: ''
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+
+            background-image: url(../image/new-chevron-down.svg)
+            background-repeat: no-repeat
+            background-size: 14px
+            background-position: center
+        //end a
+
+        border-top: 1px solid lighten($dark, 10)
+        border-bottom: 1px solid lighten($dark, 10)
+        border-left: 1px solid lighten($dark, 10)
+
+        text-decoration: none !important
+        +mt
+        padding: 10px 10px
+        display: block
+
+        color: $dim-blue
+        font-size: rem(15)
+        line-height: (20/15)
+        &:hover
+          color: $green
+    .submenu-2
+      list-style: none
+      padding: 0
+      margin: 0 0 15px 0
+
+      transform-origin: top
+      display: none
+      &.active
+        display: block
+    .submenu-2-item
+      a
+        white-space: normal
+        display: block
+        padding: 8px 15px
+  &__burger-btn
+    width: 50px
+    height: 50px
+    //box-shadow: 0 0 0 1px red
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    &.active
+      span
+        background-color: transparent
+      span:before
+        transform: rotate(45deg)
+        top: 0
+      span:after
+        transform: rotate(-45deg)
+        top: 0
+
+    span,
+    span:before,
+    span:after
+      width: 32px
+      height: 3.5px
+      background-color: $dark
+      display: block
+      +mt
+
+    span:before,
+    span:after
+      content: ''
+      position: absolute
+      left: 0
+
+    span
+      position: relative
+
+    span:before
+      top: -8px
+    span:after
+      top: 7px
+
+

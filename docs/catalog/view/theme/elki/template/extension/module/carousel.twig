@@ -1,0 +1,38 @@
+<!--carousel.twig-->
+<div class="swiper-viewport">
+  <div id="carousel{{ module }}" class="swiper-container">
+    <div class="swiper-wrapper">
+      {% for banner in banners %}
+        <div class="swiper-slide text-center">
+          {% if banner.link %}
+            <a href="{{ banner.link }}" class="popimg">
+              <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-fluid" />
+            </a>
+          {% else %}
+            <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-fluid" />
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {# <div class="swiper-pagination carousel{{ module }}"></div> #}
+</div>
+
+<script type="text/javascript"><!--
+new Swiper('#carousel{{ module }}', {
+  slidesPerView: 2,
+  spaceBetween: 30,
+  autoplay: 5000,
+  //bp
+  breakpoints: {
+    //480: {
+    //  slidesPerView: 1,
+    //  spaceBetween: 20
+    //},
+    // when window width is <= 640px
+    640: {
+      slidesPerView: 2,
+    }
+  }
+});
+--></script>

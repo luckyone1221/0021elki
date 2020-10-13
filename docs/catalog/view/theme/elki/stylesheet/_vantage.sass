@@ -1,0 +1,76 @@
+.vantage
+  padding: rem(35)
+  @media (min-width: $lg)
+    padding: 46px 0 54px 0
+  &__row
+    +roww(24px)
+  &__col
+    margin-bottom: rem(24)
+    @media (min-width: $lg)
+      margin-bottom: 0
+    //1,3
+    &:nth-child(2n + 1)
+      .vantage__inner-cont
+        //background-color: $green
+        position: relative
+        z-index: 2
+        //&:after
+        //  @media (min-width: $sm)
+        //    content: ''
+        //  position: absolute
+        //  z-index: -1
+        //  left: calc(100% - 32px)
+        //  top: 0
+        //  width: 32px
+        //  height: 100%
+        //
+        //  background-color: $green
+        //  background-image: url(../image/new-vantage-edge.png)
+        //  background-repeat: repeat-y
+        //  background-position: 100% 100%
+        &:before
+          content: ''
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          position: absolute
+          z-index: -1
+          //background-color: rgba($black, .3)
+          background-color: $green
+          @media (min-width: $sm)
+            clip-path: polygon(0 0,0% 100%,100% 100%,97% 87%,100% 74%,97% 61%,100% 48%,97% 36%,100% 23%,97% 11%,100% 0)
+
+        //new-vantage-edge.png
+    //2,4
+    &:nth-child(2n)
+      .vantage__inner-cont
+        background-color: $red
+  &__inner-cont
+    display: flex
+    align-items: center
+    height: 100%
+    padding: 20px 15px 35px 15px
+  &__img
+    flex-shrink: 0
+    width: 46px
+    height: 46px
+    margin-right: rem(20)
+    display: flex
+    align-items: center
+    justify-content: center
+    img
+      width: auto
+      height: auto
+      max-width: 100%
+      max-height: 100%
+
+  &__txt
+    color: $white
+    font-size: rem(16px)
+    line-height: 1.5
+
+  &__
+  &__
+  &__
+  &__

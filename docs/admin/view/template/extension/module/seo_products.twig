@@ -1,0 +1,285 @@
+<style>
+    .sortitem .sorthandle {
+        cursor: move;
+        display: inline-block;
+        position: initial;
+    }
+    .sorthandle img {
+        width: 13px;;
+    }
+    fieldset {
+        margin-top: 30px;
+    }
+    #slider-range {
+        height: 20px;
+        width : 0;
+        background: #08daff;;
+    }
+
+    .fa-li {
+        position: relative;
+        left: 0;
+        width: auto;
+        top: 0;
+    }
+    #content .container-fluid fieldset {
+        margin-bottom: 20px;
+    }
+    #content .container-fluid fieldset textarea {
+        width: 100%;
+        min-height: 50px;
+    }
+</style>
+
+{{ header }} {{ column_left }}
+
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        {% if error_warning %}
+            <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+
+            <legend>{{ entry_seo_url_generator }}</legend>
+            <fieldset>
+                <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_seo }}">{{ entry_seo_url_generator }}</span></label>
+                <div class="col-sm-10">
+                    <div class="well well-sm" style="margin-bottom: 0; padding: 0 9px">
+                        {% set ij = 0 %}
+                        {% for key,seo in seo_products_set %}
+                            <div class="checkbox sortitem">
+                                <span class="sorthandle"><img src="view/image/icon-drag-drop.png"></span>
+                                <label>
+                                    <input type="checkbox" name="seo_products_set[{{ seo.product_input }}]" {{ seo.checked ? 'checked="checked"' }} />
+                                    {{ seo.name }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a onclick="$(this).parent().find(':checkbox').prop('checked', true);">{{ text_select_all }}</a> / <a onclick="$(this).parent().find(':checkbox').attr('checked', false);">{{ text_unselect_all }}</a></td>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <label class="col-sm-2 control-label">{{ entry_csak_hianyzo_seo }}</label>
+                <div class="col-sm-10">
+                    <input type="checkbox" name="seo_products_csak_hianyzo" {{ seo_products_csak_hianyzo ? 'checked="checked"' }}/>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <label class="col-sm-2 control-label">{{ text_helyettesito }}</label>
+                <div class="col-sm-10">
+                    {{ text_mit_mire }}<br>
+                    <textarea name="seo_products_helyettesito">{{ seo_products_helyettesito }}</textarea>
+                </div>
+            </fieldset>
+        </form>>
+
+        <fieldset>
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-9" style="padding-left: 0;margin-left: 15px;background-color: #dddddd; padding-right: 0;">
+                <div id="slider-range" class="slider" style="clear:both;"></div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <button type="button" id="button-generate-seo" title="{{ text_seo_general }}"
+                        data-loading-text="{{ text_generation_process }}" class="btn btn-info">{{ text_seo_general }}</button>
+            </div>
+        </fieldset>
+
+
+    </div>
+</div>
+{{ footer }}
+<script type="text/javascript" src="view/javascript/jquery/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+
+    function generate_seo_url() {
+
+        $('.alert-dismissible').remove();
+
+
+        if ($('.checkbox.sortitem input:checked').length == 0) {
+            $('#content >.container-fluid').before('<div class="alert alert-danger alert-dismissible" style="display: none"><i class="fa fa-exclamation-circle"></i> {{ error_empty_seo_set }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            $('.alert-danger').slideDown('slow', function () {
+                $('.well.well-sm').css('border-color', 'red');
+            });
+
+        } else {
+            $('#button-generate-seo').button('loading');
+
+            var limit_tol = 0;
+            var limit_ig = {{ egyszerre }};
+            var product_total = '{{ products_total }}';
+
+            var vege = Math.floor(product_total / limit_ig);
+
+            leptet = 100 / vege;
+            kilep = false;
+
+            ajax_indit(0,vege,0,leptet);
+
+        }
+    }
+
+    function ajax_indit(kezdet,vege,limit_tol,leptet) {
+
+        limit_ig = {{ egyszerre }};
+
+        $.ajax({
+            url: 'index.php?route=extension/module/seo_products/validateSeo&user_token={{ user_token }}&limit_tol=' + limit_tol + '&limit_ig=' + limit_ig,
+            data: $('input:checked,textarea'),
+            dataType: 'json',
+            type: 'post',
+            async: true,
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+
+            success: function (json) {
+                debugger;
+                if (kezdet <= vege) {
+                    kezdet ++;
+                    limit_tol = (limit_tol * 1) + (limit_ig * 1);
+                    ajax_indit(kezdet,vege,limit_tol,leptet);
+                    var szazalek = kezdet == vege ? 100 : ((kezdet * leptet) > 100 ? 100 : kezdet * leptet);
+
+                    $("#slider-range").css("width", (szazalek) + '%');
+
+                } else {
+                    $("#slider-range").css("width", '100%');
+
+                    $('#content >.container-fluid').before('<div class="alert alert-success alert-dismissible" style="display: none"><i class="fa fa-check-circle"></i> {{ success }} <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $("#slider-range").hide("slide", {direction: "left"}, 500, function () {
+                        $('.alert-success').slideDown('slow', function () {
+                            $('.well.well-sm').css('border-color', '#f5f5f5');
+                            $('#button-generate-seo').button('reset');
+                            $("#slider-range").css('width',0);
+                            $("#slider-range").css('display','block');
+                        });
+                    });
+
+                }
+            },
+
+            error: function (e, ajaxOptions, thrownError) {
+                debugger;
+                alert(thrownError);
+                kilep = true;
+            }
+        });
+
+    }
+
+    function sleep(delay) {
+        debugger;
+        var start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+    }
+
+    $(document).delegate('.keszites_ikon', 'click', function(e) {
+        var id = $(this).attr('id');
+
+        var aktualis = id.replace('keszites_ikon_','')
+        $('#keszites_ikon_'+aktualis).html('<i class="fa-li fa fa-spinner"></i>');
+
+        var limit_tol = $(this).attr('limit_tol');
+        var limit_ig = $(this).attr('limit_ig');
+        $.ajax({
+            url: 'index.php?route=extension/module/seo_products/validateSeo&user_token={{ user_token }}&limit_tol=' + limit_tol + '&limit_ig=' + limit_ig,
+            data: $('input:checked'),
+            dataType: 'json',
+            type: 'post',
+            async: true,
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+
+            success: function (json) {
+                $('#keszites_ikon_'+aktualis).html('<i class="fa-li fa fa-check-square"></i>');
+                aktualis ++;
+                $('#keszites_ikon_'+aktualis).click();
+
+                if (json['slider']) {
+                    $("#slider-range").css("width", (json['slider'] * leptet) + '%');
+                }
+                if (json['success']) {
+                    $('#content >.container-fluid').before('<div class="alert alert-success alert-dismissible" style="display: none"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+                    $("#slider-range").hide("slide", {direction: "left"}, 500, function () {
+                        $('.alert-success').slideDown('slow', function () {
+                            $('.well.well-sm').css('border-color', '#f5f5f5');
+                            $('#button-generate-seo').button('reset');
+                            $("#slider-range").css('width',0);
+                            $("#slider-range").css('display','block');
+                        });
+                    });
+                }
+
+                if (json['error']) {
+                    var html = '<div id="hibalista">{{ text_hibalista }}';
+                    for (i in json['error']) {
+                        html += '<div class="list">' + json['error'][i] + '</div>';
+                    }
+                    html += '</div>';
+                }
+            },
+
+            error: function (e, ajaxOptions, thrownError) {
+                debugger;
+                alert(thrownError);
+                kilep = true;
+            }
+        });
+
+
+
+        debugger;
+    });
+
+    $('#button-generate-seo').bind('click',function(){
+        generate_seo_url();
+    });
+
+    $('.checkbox.sortitem input[type="checkbox"]').bind('click',function(){
+        $('.well.well-sm').css('border-color','#f5f5f5');
+        $('.alert-danger').slideUp('slow',function(){
+            $('.alert-danger').remove();
+        });
+    });
+
+    $('.well.well-sm').next().bind('click',function(){
+        $('.well.well-sm').css('border-color','#f5f5f5');
+        $('.alert-danger').slideUp('slow',function(){
+            $('.alert-danger').remove();
+        });
+    });
+
+
+</script>

@@ -1,0 +1,150 @@
+{{ header }}
+<style>
+.image {
+  
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.thumbnail:hover .image {
+  opacity: 0.7;
+}
+
+.thumbnail:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  
+  color: #ffff;
+  font-size: 38px;
+  padding: 16px 32px;
+}
+</style>
+<div class="breadscrums">
+  <div class="container">
+    <div class="row">
+      <ul>
+       {% for breadcrumb in breadcrumbs %}
+       {% if  loop.index < loop.length %}
+      <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li> {% else %}<li style="text-decoration: unset"><span>{{ breadcrumb.text }}</span>{% endif %}</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="gallery" class="container mt-3">
+
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+     
+
+    <div id="content" class="{{ class }}" style="min-height:300px!important;">{{ content_top }}{{ gallery_image.img_position }}
+      <h1>{{ title }}</h1>
+      {% for album_image in album_images%}
+          {% if album_image.img_position == 'right' %}
+           {% set position = 'float-right pull-right' %}
+           {% set desc = 'padding:50px 20px 50px 0px;font-size:15px;text-align: right;' %}
+           {% elseif album_image.img_position == 'left' %}
+           {% set position = 'float-left pull-left' %}
+           {% set desc = 'padding:50px 50px 50px 50px;font-size:15px;text-align: left' %}
+           {% elseif album_image.img_position == 'center' %}
+           {% set position = 'center-block text-center' %}
+           {% set desc = 'padding:20px 80px 50px 80px;font-size:15px;text-align:center;' %}
+           {%endif%}
+         <div class='col-md-12'>
+            <div class="{{position}}" style="padding:20px 20px 20px 20px;"><img  class="{% if album_image.img_position == 'center' %}center-block text-center  {%endif%} thumbnail" src="{{ album_image.album_image}}"></div>
+              <div  class="desc" style="{{desc}}"><p style="">{{ album_image.album_description }}</p></div>         </div>
+          {% endfor%}
+     </div>
+    <div class="row">
+         {% for gallery_image in gallery_images %}
+          {% if gallery_image.image_perrow == 2 %}
+         {% set clas = 'col-sm-6 ' %}
+         {% elseif gallery_image.image_perrow == 3 %}
+         {% set clas = 'col-sm-4' %}
+         {% elseif gallery_image.image_perrow == 4 %}
+         {% set clas = 'col-sm-3' %}
+          
+          {% elseif gallery_image.image_perrow == 6 %}
+         {% set clas = 'col-sm-2' %}
+         {% else %}
+          {% set clas = 'col-sm-12' %}
+         {% endif %}
+          
+           {% if gallery_image.popup_type == 2 %}
+              <div class="{{ clas}}" >
+                <div class="thumbnail">
+                 <a class="" href="{{ (gallery_image.popup_resize)?gallery_image.image:gallery_image.pop_image}}" data-lightbox="Gallery-Image"><img src="{{ gallery_image.image}}" class="img-fluid image" >
+                 <div class="middle">
+                    <span class="text glyphicon glyphicon-zoom-in"></span>
+                 </div></a>
+               </div>
+              </div>
+              {% endif %}
+               {% if gallery_image.popup_type == 1 %}
+
+              <div class="{{ clas}}">
+                 <div class="thumbnail">
+                <a class=""  href="{{ (gallery_image.popup_resize)?gallery_image.image:gallery_image.pop_image}}" data-toggle="lightbox" data-gallery="gallery">
+                <img src="{{ gallery_image.image}}" class="img-fluid image img-fluid" >
+                 <div class="middle">
+                    <span class="text glyphicon glyphicon-zoom-in"></span></a>
+                 </div>
+              </div>
+   
+              {% endif %}
+              {% if gallery_image.popup_type == 0 %}
+              <div class="{{ clas }}" >
+                 <div class="thumbnail" id="gallery2" class="gallery2">
+                <a class="test-popup-link" href="{{ (gallery_image.popup_resize)?gallery_image.image:gallery_image.pop_image}}"><img src="{{ gallery_image.image}}"  class="img-fluid image" >
+                <div class="middle">
+                    <span class="text glyphicon glyphicon-zoom-in"></span>
+                 </div></a>
+              </div>
+            </div>
+              {% endif %}
+         {% endfor %}
+         </div>
+       
+    {{ column_right }}</div>
+      <div class="col-sm-6 text-left">{{ pagination }}</div>
+</div>
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+</script>
+<script type="text/javascript">
+  $('.test-popup-link').magnificPopup({
+  type: 'image',
+  gallery:{enabled:true}
+  // other options
+});
+
+
+</script>
+
+{{ footer }}

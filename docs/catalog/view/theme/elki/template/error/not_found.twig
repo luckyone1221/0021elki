@@ -1,0 +1,35 @@
+{{ header }}
+<div class="breadscrums">
+  <div class="container">
+    <div class="swiper-container breadcrumb-slider-js">
+      <ul class="swiper-wrapper">
+        {% for breadcrumb in breadcrumbs %}
+          {% if  loop.index < loop.length %}
+            <li class="swiper-slide">
+              <a href="{{ breadcrumb.href }}" class="breadcrumb-item">
+                {{ breadcrumb.text }}
+              </a>
+            </li>
+          {% else %}
+            {# last breadcrumb #}
+            <li class="swiper-slide">
+              <span class="breadcrumb-item">{{ breadcrumb.text }}</span>
+            </li>
+          {% endif %}
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="error-not-found" class="container">
+  <div id="content" class="empty-basket">
+    <h1>{{ heading_title }}</h1>
+    <p>{{ text_error }}</p>
+    <a href="{{ continue }}" class="empty-basket-btn">
+      {{ button_continue_shopping }}
+    </a>
+  </div>
+</div>
+{{ footer }}

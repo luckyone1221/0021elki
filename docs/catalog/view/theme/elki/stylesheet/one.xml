@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>Sla SEO Pro 3020</name>
+  <code>sla_seo_pro_modification</code>
+  <version>1.01 beta</version>
+  <author>SlaSoft</author>
+  <link></link>
+
+  <file path="admin/controller/catalog/product.php">
+    <operation>
+      <search><![CDATA[$data['breadcrumbs'] = array();]]></search>
+      <add position="before"><![CDATA[
+			$data['entry_main_category'] = $this->language->get('entry_main_category');
+			]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[// Filters]]></search>
+      <add position="before"><![CDATA[
+			if (isset($this->request->post['main_category_id'])) {
+				$data['main_category_id'] = $this->request->post['main_category_id'];
+			} elseif (isset($product_info)) {
+				$data['main_category_id'] = $this->model_catalog_product->getProductMainCategoryId($this->request->get['product_id']);
+			} else {
+				$data['main_category_id'] = 0;
+			}
+		]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/en-gb/catalog/product.php">
+    <operation>
+      <search><![CDATA[// Entry]]></search>
+      <add position="after"><![CDATA[$_['entry_main_category']	= 'Main category:';]]></add>
+    </operation>
+  </file>
+  <file path="admin/language/ru-ru/catalog/product.php">
+    <operation>
+      <search><![CDATA[// Entry]]></search>
+      <add position="after"><![CDATA[$_['entry_main_category']	= 'Главная категория:';]]></add>
+    </operation>
+  </file>
+  <file path="admin/model/catalog/product.php">
+    <operation>
+      <search><![CDATA[if (isset($data['product_related'])) {]]></search>
+      <add position="before"><![CDATA[
+			if(isset($data['main_category_id']) && $data['main_category_id'] > 0) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_to_category WHERE product_id = '" . (int)$product_id . "' AND category_id = '" . (int)$data['main_category_id'] . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_to_category SET product_id = '" . (int)$product_id . "', category_id = '" . (int)$data['main_category_id'] . "', main_category = 1");
+			} elseif(isset($data['product_category'][0])) {
+				$this->db->query("UPDATE " . DB_PREFIX . "product_to_category SET main_category = 1 WHERE product_id = '" . (int)$product_id . "' AND category_id = '" . (int)$data['product_category'][0] . "'");
+			}
+			]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[public function getProductRelated($product_id) {]]></search>
+      <add position="before"><![CDATA[
+
+			/*
+			  public function getProductMainCategoryId($product_id) {
+				$query = $this->db->query("SELECT category_id FROM " . DB_PREFIX . "product_to_category WHERE product_id = '" . (int)$product_id . "' AND main_category = '1' LIMIT 1");
+				return ($query->num_rows ? (int)$query->row['category_id'] : 0);
+			}
+			*/
+
+			]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[$this->getProductCategories($product_id)]]></search>
+      <add position="before"><![CDATA[
+			$data['main_category_id'] = $this->getProductMainCategoryId($this->request->get['product_id']);
+			]]></add>
+    </operation>
+  </file>
+  <file path="admin/view/template/catalog/product_form.twig">
+    <operation>
+      <search><![CDATA[<label class="col-sm-2 control-label" for="input-category"><span data-toggle="tooltip" title="{{ help_category }}">{{ entry_category }}</span></label>]]></search>
+      <add position="before" offset="1"><![CDATA[
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="input-category">{{ entry_main_category }}</label>
+				<div class="col-sm-10">
+					<select id="main_category_id" name="main_category_id" class="form-control">
+						<option value="0" selected="selected">{{ text_none }}</option>
+						{% for category in product_categories %}
+							{% if (category.category_id == main_category_id) %}
+								<option value="{{ category.category_id }}" selected="selected">{{ category.name }}</option>
+							{% else %}
+								<option value="{{ category.category_id }}">{{ category.name }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[$('#product-category').append('<div id="product-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_category[]" value="' + item['value'] + '" /></div>');]]></search>
+      <add position="after"><![CDATA[
+			if ($('#main_category_id option[value="' + item['value'] + '"]').length == 0) {
+				$('#main_category_id').append('<option value="' + item['value'] + '">' + item['label'] + '</option>');
+			}
+			]]></add>
+    </operation>
+    <operation>
+      <search><![CDATA[$('#product-category').delegate('.fa-minus-circle', 'click', function() {]]></search>
+      <add position="after"><![CDATA[
+			var category_id = $(this).parent().find('input[name="product_category\\[\\]"]').val();
+			$('#main_category_id option[value="' + category_id + '"]').remove();
+			]]></add>
+    </operation>
+  </file>
+</modification>
